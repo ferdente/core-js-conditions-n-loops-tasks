@@ -162,8 +162,52 @@ function convertToRomanNumerals(num) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  const digitWords = {
+    1: 'one',
+    2: 'two',
+    3: 'three',
+    4: 'four',
+    5: 'five',
+    6: 'six',
+    7: 'seven',
+    8: 'eight',
+    9: 'nine',
+    0: 'zero',
+    '-': 'minus',
+    '.': 'point',
+  };
+
+  let result = '';
+
+  for (let i = 0; i < numberStr.length; i += 1) {
+    switch (Number.isNaN(Number(numberStr[i]))) {
+      case false:
+        result += digitWords[Number(numberStr[i])];
+        if (i !== numberStr.length - 1) {
+          result += ' ';
+        }
+        break;
+      case true:
+        if (numberStr[i] === '.' || numberStr[i] === ',') {
+          result += digitWords['.'];
+          if (i !== numberStr.length - 1) {
+            result += ' ';
+          }
+        }
+        if (numberStr[i] === '-') {
+          result += digitWords['-'];
+          if (i !== numberStr.length - 1) {
+            result += ' ';
+          }
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  return result;
 }
 
 /**
@@ -178,8 +222,20 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let left = 0;
+  let right = str.length - 1;
+
+  while (left < right) {
+    if (str[left] !== str[right]) {
+      return false;
+    }
+
+    left += 1;
+    right -= 1;
+  }
+
+  return true;
 }
 
 /**
