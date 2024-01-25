@@ -452,8 +452,19 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const len = arr.length;
+  const arr2 = arr;
+  for (let i = 0; i < len - 1; i += 1) {
+    for (let j = 0; j < len - i - 1; j += 1) {
+      if (arr2[j] > arr2[j + 1]) {
+        const temp = arr2[j];
+        arr2[j] = arr2[j + 1];
+        arr2[j + 1] = temp;
+      }
+    }
+  }
+  return arr2;
 }
 
 /**
@@ -473,8 +484,33 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuff(x) {
+  let evenChars = '';
+  let oddChars = '';
+  let result = '';
+  for (let i = 0; i < x.length; i += 1) {
+    if (i % 2 === 0) {
+      evenChars += x[i];
+    } else {
+      oddChars += x[i];
+    }
+  }
+  result = evenChars + oddChars;
+  return result;
+}
+function shuffleChar(str, iterations) {
+  let arr = str;
+  let count = iterations;
+
+  while (count > 0) {
+    arr = shuff(arr);
+    count -= 1;
+    if (arr === str) {
+      count = iterations % (iterations - count);
+    }
+  }
+
+  return arr;
 }
 
 /**
@@ -494,8 +530,33 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  const arr = Array.from(String(number), Number);
+
+  let i = arr.length - 1;
+  while (i > 0 && arr[i - 1] >= arr[i]) {
+    i -= 1;
+  }
+
+  if (i <= 0) {
+    return false;
+  }
+
+  let j = arr.length - 1;
+  while (arr[j] <= arr[i - 1]) {
+    j -= 1;
+  }
+
+  [arr[i - 1], arr[j]] = [arr[j], arr[i - 1]];
+
+  j = arr.length - 1;
+  while (i < j) {
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+    i += 1;
+    j -= 1;
+  }
+
+  return Number(arr.join(''));
 }
 
 module.exports = {
